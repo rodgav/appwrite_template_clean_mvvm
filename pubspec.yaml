@@ -46,7 +46,6 @@ dependencies:
   go_router: ^3.0.1
   intl: ^0.17.0
   flutter_phoenix: ^1.0.0
-  file_picker: ^4.5.1
 
 dev_dependencies:
   flutter_test:
