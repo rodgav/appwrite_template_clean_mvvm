@@ -17,7 +17,15 @@ class MainViewModel extends BaseViewModel
 
   MainViewModel(this._mainUseCase, this._appPreferences, this._localDataSource);
 
-  //start and dispose override
+  @override
+  void start() {
+    super.start();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   deleteSession(BuildContext context) async {

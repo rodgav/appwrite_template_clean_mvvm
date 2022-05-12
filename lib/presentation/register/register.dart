@@ -2,7 +2,6 @@ import 'package:appwrite_template_clean_mvvm/app/dependency_injection.dart';
 import 'package:appwrite_template_clean_mvvm/intl/generated/l10n.dart';
 import 'package:appwrite_template_clean_mvvm/presentation/common/state_render/state_render_impl.dart';
 import 'package:appwrite_template_clean_mvvm/presentation/global_widgets/responsive.dart';
-import 'package:appwrite_template_clean_mvvm/presentation/resources/assets_manager.dart';
 import 'package:appwrite_template_clean_mvvm/presentation/resources/color_manager.dart';
 import 'package:appwrite_template_clean_mvvm/presentation/resources/routes_manager.dart';
 import 'package:appwrite_template_clean_mvvm/presentation/resources/values_manager.dart';
@@ -84,10 +83,10 @@ class _RegisterViewState extends State<RegisterView> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  SizedBox(
+                 const SizedBox(
                       width: AppSize.s250,
                       height: AppSize.s140,
-                      child: Image.asset(ImageAssets.logo, fit: BoxFit.cover)),
+                      child: Placeholder()),
                   const SizedBox(height: AppSize.s40),
                   StreamBuilder<bool>(
                     stream: _viewModel.outputNameValid,
