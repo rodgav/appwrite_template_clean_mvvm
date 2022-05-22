@@ -12,10 +12,10 @@ class AppServiceClient {
   final Database _database;
   final Storage _storage;
 
-  AppServiceClient(Client _client, AppPreferences _appPreferences)
-      : _account = Account(_client),
-        _database = Database(_client),
-        _storage = Storage(_client);
+  AppServiceClient(Client client, AppPreferences appPreferences)
+      : _account = Account(client),
+        _database = Database(client),
+        _storage = Storage(client);
 
   Future<Session> login(LoginRequest loginRequest) => _account.createSession(
       email: loginRequest.email, password: loginRequest.password);

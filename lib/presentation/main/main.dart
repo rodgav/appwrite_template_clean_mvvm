@@ -1,6 +1,8 @@
 import 'package:appwrite_template_clean_mvvm/app/dependency_injection.dart';
 import 'package:appwrite_template_clean_mvvm/presentation/main/main_viewmodel.dart';
+import 'package:appwrite_template_clean_mvvm/presentation/resources/routes_manager.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class MainView extends StatefulWidget {
   const MainView({Key? key}) : super(key: key);
@@ -32,4 +34,7 @@ class _MainViewState extends State<MainView> {
       ),
     );
   }
+
+  _goSplash()=>
+    GoRouter.of(context).go(Routes.splashRoute);
 }

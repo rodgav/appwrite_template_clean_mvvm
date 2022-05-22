@@ -1,7 +1,5 @@
 import 'package:appwrite_template_clean_mvvm/app/app_preferences.dart';
-import 'package:appwrite_template_clean_mvvm/presentation/resources/routes_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:appwrite_template_clean_mvvm/app/functions.dart';
 import 'package:appwrite_template_clean_mvvm/domain/usecase/login_usecase.dart';
@@ -34,7 +32,7 @@ class LoginViewModel extends BaseViewModel
   Sink get inputEmail => _emailStreCtrl.sink;
 
   @override
-  login(BuildContext context) async {
+  login(BuildContext context,VoidCallback goMain) async {
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState,
         message: AppStrings.empty));
@@ -45,12 +43,12 @@ class LoginViewModel extends BaseViewModel
           .add(ErrorState(StateRendererType.fullScreenErrorState, f.message));
     }, (r) async {
       await _appPreferences.setSessionIds(r.$id, r.userId);
-      GoRouter.of(context).go(Routes.mainRoute);
+      goMain.call();
     });
   }
 
   @override
-  anonymous(BuildContext context) async {
+  anonymous(BuildContext context,VoidCallback goMain) async {
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState,
         message: AppStrings.empty));
@@ -59,7 +57,7 @@ class LoginViewModel extends BaseViewModel
           .add(ErrorState(StateRendererType.fullScreenErrorState, f.message));
     }, (r) async {
       await _appPreferences.setSessionIds(r.$id, r.userId);
-      GoRouter.of(context).go(Routes.mainRoute);
+      goMain.call();
     });
   }
 
@@ -119,9 +117,9 @@ abstract class LoginViewModelInput {
 
   setPassword(String password);
 
-  login(BuildContext context);
+  login(BuildContext context,VoidCallback goMain);
 
-  anonymous(BuildContext context);
+  anonymous(BuildContext context,VoidCallback goMain);
 
   Sink get inputEmail;
 

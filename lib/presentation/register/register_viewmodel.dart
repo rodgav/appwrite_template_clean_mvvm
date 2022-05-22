@@ -1,7 +1,5 @@
 import 'package:appwrite_template_clean_mvvm/app/app_preferences.dart';
-import 'package:appwrite_template_clean_mvvm/presentation/resources/routes_manager.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:rxdart/rxdart.dart';
 import 'package:appwrite_template_clean_mvvm/app/functions.dart';
 import 'package:appwrite_template_clean_mvvm/domain/usecase/register_usecase.dart';
@@ -38,7 +36,7 @@ class RegisterViewModel extends BaseViewModel
   Sink get inputName => _nameStreCtrl.sink;
 
   @override
-  register(BuildContext context) async {
+  register(BuildContext context, VoidCallback goMain) async {
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState,
         message: AppStrings.empty));
@@ -48,14 +46,14 @@ class RegisterViewModel extends BaseViewModel
       inputState
           .add(ErrorState(StateRendererType.fullScreenErrorState, f.message));
     }, (r) async {
-      (await _registerUsecase.login(
-          RegisterUseCaseInput(_loginObject.username, _loginObject.password, _loginObject.name)))
+      (await _registerUsecase.login(RegisterUseCaseInput(
+              _loginObject.username, _loginObject.password, _loginObject.name)))
           .fold((f) {
         inputState
             .add(ErrorState(StateRendererType.fullScreenErrorState, f.message));
       }, (r) async {
         await _appPreferences.setSessionIds(r.$id, r.userId);
-        GoRouter.of(context).go(Routes.mainRoute);
+        goMain.call();
       });
     });
   }
@@ -136,7 +134,7 @@ abstract class RegisterViewModelInput {
 
   setName(String name);
 
-  register(BuildContext context);
+  register(BuildContext context, VoidCallback goMain);
 
   Sink get inputEmail;
 

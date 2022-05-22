@@ -4,10 +4,8 @@ import 'package:appwrite_template_clean_mvvm/domain/usecase/main_usecase.dart';
 import 'package:appwrite_template_clean_mvvm/presentation/base/base_viewmodel.dart';
 import 'package:appwrite_template_clean_mvvm/presentation/common/state_render/state_render.dart';
 import 'package:appwrite_template_clean_mvvm/presentation/common/state_render/state_render_impl.dart';
-import 'package:appwrite_template_clean_mvvm/presentation/resources/routes_manager.dart';
 import 'package:appwrite_template_clean_mvvm/presentation/resources/strings_manager.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:go_router/go_router.dart';
 
 class MainViewModel extends BaseViewModel
     with MainViewModelInputs, MainViewModelOutputs {
@@ -28,7 +26,7 @@ class MainViewModel extends BaseViewModel
   }
 
   @override
-  deleteSession(BuildContext context) async {
+  deleteSession(BuildContext context,VoidCallback goSplash) async {
     inputState.add(LoadingState(
         stateRendererType: StateRendererType.fullScreenLoadingState,
         message: AppStrings.empty));
@@ -41,13 +39,13 @@ class MainViewModel extends BaseViewModel
       inputState.add(ContentState());
       await _appPreferences.logout();
       _localDataSource.clearCache();
-      GoRouter.of(context).go(Routes.splashRoute);
+      goSplash.call();
     });
   }
 }
 
 abstract class MainViewModelInputs {
-  deleteSession(BuildContext context);
+  deleteSession(BuildContext context,VoidCallback goSplash);
 }
 
 abstract class MainViewModelOutputs {}

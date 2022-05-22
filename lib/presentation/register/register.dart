@@ -56,7 +56,9 @@ class _RegisterViewState extends State<RegisterView> {
                     ?.getScreenWidget(context, _getContentWidget(size, s), () {
                   _viewModel.inputState.add(ContentState());
                 }, () {
-                  _viewModel.register(context);
+                  _viewModel.register(context, () {
+                    _goMain();
+                  });
                 }) ??
                 _getContentWidget(size, s)));
   }
@@ -83,7 +85,7 @@ class _RegisterViewState extends State<RegisterView> {
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                 const SizedBox(
+                  const SizedBox(
                       width: AppSize.s250,
                       height: AppSize.s140,
                       child: Placeholder()),
@@ -147,7 +149,9 @@ class _RegisterViewState extends State<RegisterView> {
                                             BorderSide(
                                                 color: ColorManager.primary))),
                                 onPressed: (snapshot.data ?? false)
-                                    ? () => _viewModel.register(context)
+                                    ? () => _viewModel.register(context, () {
+                                          _goMain();
+                                        })
                                     : null,
                                 child: Text(s.register)),
                           )),
@@ -165,4 +169,6 @@ class _RegisterViewState extends State<RegisterView> {
       ),
     );
   }
+
+  _goMain() => GoRouter.of(context).go(Routes.mainRoute);
 }

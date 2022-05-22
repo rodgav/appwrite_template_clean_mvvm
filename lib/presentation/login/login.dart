@@ -52,7 +52,9 @@ class _LoginViewState extends State<LoginView> {
                     ?.getScreenWidget(context, _getContentWidget(size, s), () {
                   _viewModel.inputState.add(ContentState());
                 }, () {
-                  _viewModel.login(context);
+                  _viewModel.login(context, () {
+                    _goMain();
+                  });
                 }) ??
                 _getContentWidget(size, s)));
   }
@@ -130,7 +132,9 @@ class _LoginViewState extends State<LoginView> {
                                             BorderSide(
                                                 color: ColorManager.primary))),
                                 onPressed: (snapshot.data ?? false)
-                                    ? () => _viewModel.login(context)
+                                    ? () => _viewModel.login(context, () {
+                                          _goMain();
+                                        })
                                     : null,
                                 child: Text(s.login)),
                           )),
@@ -139,7 +143,9 @@ class _LoginViewState extends State<LoginView> {
                       width: double.infinity,
                       height: AppSize.s40,
                       child: ElevatedButton(
-                          onPressed: () => _viewModel.anonymous(context),
+                          onPressed: () => _viewModel.anonymous(context, () {
+                                _goMain();
+                              }),
                           child: Text(s.anonymous))),
                   const SizedBox(height: AppSize.s10),
                   SizedBox(
@@ -163,4 +169,6 @@ class _LoginViewState extends State<LoginView> {
       ),
     );
   }
+
+  _goMain() => GoRouter.of(context).go(Routes.mainRoute);
 }
