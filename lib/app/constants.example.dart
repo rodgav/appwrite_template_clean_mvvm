@@ -2,6 +2,9 @@ class Constant {
   static const String baseUrl = '';
   static const String projectId = '';
 
+  //databases
+  static const String defaultId = 'default';
+
   //collections
   static const String collectionName = '';
 
