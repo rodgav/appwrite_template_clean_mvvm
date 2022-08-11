@@ -11,6 +11,6 @@ class Constant {
   //encryptKey length == 16
   static const String encryptKey = '';
 
-  //buckets
-  static const String bucketName = '';
+  //bucked
+  static const String buckedId = '';
 }

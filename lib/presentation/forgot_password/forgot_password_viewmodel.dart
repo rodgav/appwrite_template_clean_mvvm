@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:appwrite_template_clean_mvvm/app/functions.dart';
 import 'package:appwrite_template_clean_mvvm/intl/generated/l10n.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:appwrite_template_clean_mvvm/app/dependency_injection.dart';
@@ -53,11 +54,11 @@ class ForgotPasswordViewModel extends BaseViewModel
 
   @override
   Stream<bool> get outputInputValidate =>
-      _inputValidateStreamcontroller.stream.map((_) => _inputValidate());
+      _inputValidateStreamcontroller.stream.map((_) => isEmailValid(username));
 
   @override
   Stream<bool> get outputUsernameValidate => _usernameStreamcontroller.stream
-      .map((username) => _usernameValidate(username));
+      .map((username) => isEmailValid(username));
 
   @override
   setUsername(String username) {
@@ -71,16 +72,8 @@ class ForgotPasswordViewModel extends BaseViewModel
     super.start();
   }
 
-  bool _usernameValidate(String username) {
-    return username.isNotEmpty;
-  }
-
   void _validate() {
     inputInputValidate.add(null);
-  }
-
-  bool _inputValidate() {
-    return _usernameValidate(username);
   }
 }
 
